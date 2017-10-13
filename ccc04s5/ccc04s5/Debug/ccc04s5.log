@@ -1,0 +1,6 @@
+﻿  ccc04s5.cpp
+c:\users\blues\documents\visual studio 2015\projects\ccc04s5\ccc04s5\ccc04s5.cpp(47): warning C4473: 'scanf_s' : not enough arguments passed for format string
+  c:\users\blues\documents\visual studio 2015\projects\ccc04s5\ccc04s5\ccc04s5.cpp(47): note: placeholders and their parameters expect 2 variadic arguments, but 1 were provided
+  c:\users\blues\documents\visual studio 2015\projects\ccc04s5\ccc04s5\ccc04s5.cpp(47): note: the missing variadic argument 2 is required by format string '%c'
+  c:\users\blues\documents\visual studio 2015\projects\ccc04s5\ccc04s5\ccc04s5.cpp(47): note: this argument is used as a buffer size
+  ccc04s5.vcxproj -> C:\Users\blues\Documents\Visual Studio 2015\Projects\ccc04s5\Debug\ccc04s5.exe

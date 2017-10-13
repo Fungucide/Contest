@@ -1,0 +1,13 @@
+﻿  stdafx.cpp
+  ccc01s5.cpp
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\deque(997): error C2070: 'int []': illegal sizeof operand
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\queue(23): note: see reference to class template instantiation 'std::deque<_Ty,std::allocator<_Ty>>' being compiled
+          with
+          [
+              _Ty=int []
+          ]
+  c:\users\blues\documents\visual studio 2015\projects\ccc01s5\ccc01s5\ccc01s5.cpp(13): note: see reference to class template instantiation 'std::queue<int [],std::deque<_Ty,std::allocator<_Ty>>>' being compiled
+          with
+          [
+              _Ty=int []
+          ]

@@ -1,0 +1,7 @@
+﻿  dmopc16c4p3.cpp
+c:\users\blues\documents\visual studio 2015\projects\dmopc16c4p3\dmopc16c4p3\dmopc16c4p3.cpp(32): warning C4473: 'scanf_s' : not enough arguments passed for format string
+  c:\users\blues\documents\visual studio 2015\projects\dmopc16c4p3\dmopc16c4p3\dmopc16c4p3.cpp(32): note: placeholders and their parameters expect 2 variadic arguments, but 1 were provided
+  c:\users\blues\documents\visual studio 2015\projects\dmopc16c4p3\dmopc16c4p3\dmopc16c4p3.cpp(32): note: the missing variadic argument 2 is required by format string '%c'
+  c:\users\blues\documents\visual studio 2015\projects\dmopc16c4p3\dmopc16c4p3\dmopc16c4p3.cpp(32): note: this argument is used as a buffer size
+c:\users\blues\documents\visual studio 2015\projects\dmopc16c4p3\dmopc16c4p3\dmopc16c4p3.cpp(43): warning C4390: ';': empty controlled statement found; is this the intent?
+  dmopc16c4p3.vcxproj -> c:\users\blues\documents\visual studio 2015\Projects\dmopc16c4p3\Debug\dmopc16c4p3.exe

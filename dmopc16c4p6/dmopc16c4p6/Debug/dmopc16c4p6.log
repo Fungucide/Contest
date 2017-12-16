@@ -1,0 +1,8 @@
+﻿  dmopc16c4p6.cpp
+c:\users\blues\documents\visual studio 2015\projects\dmopc16c4p6\dmopc16c4p6\dmopc16c4p6.cpp(52): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'unsigned __int64 *'
+  c:\users\blues\documents\visual studio 2015\projects\dmopc16c4p6\dmopc16c4p6\dmopc16c4p6.cpp(52): note: consider using '%lld' in the format string
+  c:\users\blues\documents\visual studio 2015\projects\dmopc16c4p6\dmopc16c4p6\dmopc16c4p6.cpp(52): note: consider using '%I64d' in the format string
+c:\users\blues\documents\visual studio 2015\projects\dmopc16c4p6\dmopc16c4p6\dmopc16c4p6.cpp(52): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 2 has type 'unsigned __int64 *'
+  c:\users\blues\documents\visual studio 2015\projects\dmopc16c4p6\dmopc16c4p6\dmopc16c4p6.cpp(52): note: consider using '%lld' in the format string
+  c:\users\blues\documents\visual studio 2015\projects\dmopc16c4p6\dmopc16c4p6\dmopc16c4p6.cpp(52): note: consider using '%I64d' in the format string
+  dmopc16c4p6.vcxproj -> c:\users\blues\documents\visual studio 2015\Projects\dmopc16c4p6\Debug\dmopc16c4p6.exe

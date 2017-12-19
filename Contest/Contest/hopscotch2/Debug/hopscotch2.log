@@ -1,0 +1,4 @@
+﻿  hopscotch2.cpp
+c:\users\blues\documents\visual studio 2015\projects\contest\contest\hopscotch2\hopscotch2.cpp(9): warning C4554: '<<': check operator precedence for possible error; use parentheses to clarify precedence
+  hopscotch2.vcxproj -> C:\Users\blues\documents\visual studio 2015\Projects\Contest\Contest\Debug\hopscotch2.exe
+  hopscotch2.vcxproj -> C:\Users\blues\documents\visual studio 2015\Projects\Contest\Contest\Debug\hopscotch2.pdb (Partial PDB)

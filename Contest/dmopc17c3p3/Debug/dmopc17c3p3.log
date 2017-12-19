@@ -1,0 +1,5 @@
+﻿  dmopc17c3p3.cpp
+c:\users\blues\documents\visual studio 2015\projects\contest\dmopc17c3p3\dmopc17c3p3.cpp(18): warning C4554: '<<': check operator precedence for possible error; use parentheses to clarify precedence
+c:\users\blues\documents\visual studio 2015\projects\contest\dmopc17c3p3\dmopc17c3p3.cpp(19): warning C4554: '<<': check operator precedence for possible error; use parentheses to clarify precedence
+  dmopc17c3p3.vcxproj -> C:\Users\blues\documents\visual studio 2015\Projects\Contest\Debug\dmopc17c3p3.exe
+  dmopc17c3p3.vcxproj -> C:\Users\blues\documents\visual studio 2015\Projects\Contest\Debug\dmopc17c3p3.pdb (Partial PDB)

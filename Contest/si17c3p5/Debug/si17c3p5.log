@@ -1,0 +1,6 @@
+﻿  si17c3p5.cpp
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\utility(126): warning C4244: 'initializing': conversion from 'const __int64' to 'int', possible loss of data
+  c:\users\blues\documents\visual studio 2015\projects\contest\si17c3p5\si17c3p5.cpp(36): note: see reference to function template instantiation 'std::pair<int,int>::pair<int,__int64,void,0>(const std::pair<int,__int64> &)' being compiled
+  c:\users\blues\documents\visual studio 2015\projects\contest\si17c3p5\si17c3p5.cpp(36): note: see reference to function template instantiation 'std::pair<int,int>::pair<int,__int64,void,0>(const std::pair<int,__int64> &)' being compiled
+  si17c3p5.vcxproj -> C:\Users\blues\documents\visual studio 2015\Projects\Contest\Debug\si17c3p5.exe
+  si17c3p5.vcxproj -> C:\Users\blues\documents\visual studio 2015\Projects\Contest\Debug\si17c3p5.pdb (Partial PDB)

@@ -1,19 +1,24 @@
-#include <bits/stdc++.h>
+#define _CRT_SECURE_NO_WARNINGS 1
+
+#include <iostream>
+#include <string>
+#include <functional>
+#include <queue>
 #define MAX 10
 
 using namespace std;
 
 pair<int, int> val[MAX][MAX];
 bool vis[MAX][MAX];
-int sx = -1, sy = -1, tall = 0, R, c, tree[MAX][MAX], dir[4][2] = { { 0,1 },{ 0,-1 },{ 1,0 },{ -1,0 } };
+int sx = -1, sy = -1, tall = 0, R, C, tree[MAX][MAX], dir[4][2] = { { 0,1 },{ 0,-1 },{ 1,0 },{ -1,0 } };
 vector<pair<int, int>> larg;
 
 int main() {
-	cin >> R >> c;
+	cin >> R >> C;
 	char ln;
 	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> queue;
 	for (int i = 0; i < R; i++) {
-		for (int j = 0; j < c; j++) {
+		for (int j = 0; j < C; j++) {
 			cin >> ln;
 			if (ln == 'X') {
 				val[j][i] = { 0,0 };
@@ -46,7 +51,7 @@ int main() {
 		for (int i = 0; i < 4; i++) {
 			int nx = x + dir[i][0];
 			int ny = y + dir[i][1];
-			if (nx >= 0 && nx < c&&ny >= 0 && ny < R) {
+			if (nx >= 0 && nx < C&&ny >= 0 && ny < R) {
 				int first = val[x][y].first + tree[nx][ny];
 				int second = ((tree[nx][ny] == 0) ? val[x][y].second : val[x][y].second + 1);
 				if (val[nx][ny] > pair<int, int>{first, second}) {

@@ -3,25 +3,33 @@
 #define scan(x) do{while((x=getchar())<'0'); for(x-='0'; '0'<=(_=getchar()); x=(x<<3)+(x<<1)+_-'0');}while(0)
 char _;
 #define MIN(a,b) (a<b?a:b)
-#define MAXN 2001
-#define MAXM 5001
+#define MAXN 2005
+#define MAXM 5005
 
 using namespace std;
 
-int N, M, Q, rSwap[MAXN], seg[2 * MAXN],ref[MAXN];
+int N, M, Q, rSwap[MAXN], seg[2 * MAXN], point[2 * MAXN], cRes[MAXN][MAXN];
 char grid[MAXN][MAXM];
 
 int comp(int a, int b, int max) {
-	int res = 0;
-	for (; res <= max && res < M;res++)
-		if (grid[rSwap[a]][res] != grid[rSwap[b]][res])
-			break;
-	return res;
+	a = rSwap[point[a]];
+	b = rSwap[point[b]];
+	if (cRes[a][b] == -1) {
+		int res = 0;
+		for (; res < M; res++)
+			if (grid[a][res] != grid[b][res])
+				break;
+		cRes[a][b] = res;
+		cRes[b][a] = res;
+	}
+	return MIN(cRes[a][b], max);
 }
 
 void build() {
-	for (int i = N - 1; i > 0; --i)
+	for (int i = N - 1; i > 0; --i) {
+		point[i] = point[i << 1];
 		seg[i] = comp(i << 1, i << 1 | 1, MIN(seg[i << 1], seg[i << 1 | 1]));
+	}
 }
 
 void update(int p) {
@@ -30,8 +38,8 @@ void update(int p) {
 }
 
 int query(int l, int r) {  // sum on interval [l, r)
-	int res = M - 1;
-	int org = l;
+	int res = M + 1;
+	int org = l + N;
 	for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
 		if (l & 1) {
 			res = comp(org, l, MIN(seg[l], res));
@@ -47,21 +55,28 @@ int query(int l, int r) {  // sum on interval [l, r)
 
 
 int main() {
-	scan(N);scan(M);
-	for (int i = 0; i < N;i++) {
+	scan(N); scan(M);
+	memset(cRes, -1, sizeof cRes);
+	for (int i = 0; i < N; i++) {
 		rSwap[i] = i;
 		seg[N + i] = M;
-		for (int j = 0;j < M;j++)
+		point[N + i] = i;
+		for (int j = 0; j < M; j++)
 			grid[i][j] = getchar();
 		getchar();
 	}
 	build();
 	scan(Q);
 	int a, b;
-	for (int i = 0; i < Q;i++) {
-		scan(a);scan(b);
-		a--;b--;
-		printf("%d\n", query(a, b + 1)*abs(a-b+1));
+	for (int i = 0; i < Q; i++) {
+		scan(a); scan(b);
+		if (a == b) {
+			printf("%d\n", M);
+			continue;
+		}
+		a--;
+		printf("%d\n", query(a, b)*abs(a - b));
+		b--;
 		swap(rSwap[a], rSwap[b]);
 		update(a);
 		update(b);

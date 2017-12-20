@@ -1,3 +1,17 @@
-﻿  mmcc14p2.cpp
-  mmcc14p2.vcxproj -> C:\Users\William\Desktop\Contest\Contest\Contest\Debug\mmcc14p2.exe
-  mmcc14p2.vcxproj -> C:\Users\William\Desktop\Contest\Contest\Contest\Debug\mmcc14p2.pdb (Partial PDB)
+﻿  mmcc14p2_2.cpp
+  mmcc14p2.cpp
+  Generating Code...
+mmcc14p2_2.obj : error LNK2005: "void __cdecl build(void)" (?build@@YAXXZ) already defined in mmcc14p2.obj
+mmcc14p2_2.obj : error LNK2005: "int __cdecl comp(int,int,int)" (?comp@@YAHHHH@Z) already defined in mmcc14p2.obj
+mmcc14p2_2.obj : error LNK2005: "int __cdecl query(int,int)" (?query@@YAHHH@Z) already defined in mmcc14p2.obj
+mmcc14p2_2.obj : error LNK2005: "void __cdecl update(int)" (?update@@YAXH@Z) already defined in mmcc14p2.obj
+mmcc14p2_2.obj : error LNK2005: _main already defined in mmcc14p2.obj
+mmcc14p2_2.obj : error LNK2005: "char _" (?_@@3DA) already defined in mmcc14p2.obj
+mmcc14p2_2.obj : error LNK2005: "int N" (?N@@3HA) already defined in mmcc14p2.obj
+mmcc14p2_2.obj : error LNK2005: "int M" (?M@@3HA) already defined in mmcc14p2.obj
+mmcc14p2_2.obj : error LNK2005: "int Q" (?Q@@3HA) already defined in mmcc14p2.obj
+mmcc14p2_2.obj : error LNK2005: "int * rSwap" (?rSwap@@3PAHA) already defined in mmcc14p2.obj
+mmcc14p2_2.obj : error LNK2005: "int * seg" (?seg@@3PAHA) already defined in mmcc14p2.obj
+mmcc14p2_2.obj : error LNK2005: "int * point" (?point@@3PAHA) already defined in mmcc14p2.obj
+mmcc14p2_2.obj : error LNK2005: "int (* cRes)[2005]" (?cRes@@3PAY0HNF@HA) already defined in mmcc14p2.obj
+C:\Users\William\Desktop\Contest\Contest\Contest\Debug\mmcc14p2.exe : fatal error LNK1169: one or more multiply defined symbols found

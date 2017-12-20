@@ -9,23 +9,27 @@ char _;
 
 int N, seg[2 * MAXN];
 
-void build() {
+template <typename T>
+void build(T *t, T(*combiner)(T, T)) {
 	for (int i = N - 1; i > 0; --i)
-		seg[i] = seg[i << 1] + seg[i << 1 | 1];
+		t[i] = combiner(t[i << 1], t[i << 1 | 1]);
 }
 
-void modify(int p, int value) {
-	for (seg[p += N] = value; p > 1; p >>= 1)
-		seg[p >> 1] = seg[p] + seg[p ^ 1];
+template <typename T>
+void modify(int p, T value, T *t, T(*combiner)(T, T)) {
+	for (t[p += n] = value; p > 1; p >>= 1)
+		t[p >> 1] = combiner(t[p], t[p ^ 1]);
 }
 
-int query(int l, int r) {  // sum on interval [l, r)
-	int res = 0;
-	for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
+template <typename T>
+T query(int l, int r, T *t, T(*combiner)(T, T)) {
+	T res;
+	bool flag = false;
+	for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
 		if (l & 1)
-			res += seg[l++];//Warning: sometimes this misbehaves
+			(res = flag ? combiner(res, t[l++]) : t[l++]), flag = true;
 		if (r & 1)
-			res += seg[--r];
+			(res = flag ? combiner(res, t[--r]) : t[--r]), flag = true;
 	}
 	return res;
 }

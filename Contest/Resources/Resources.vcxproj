@@ -110,6 +110,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Disjoint Set.cpp" />
+    <ClCompile Include="Lazy Propagation Seg Tree.cpp" />
     <ClCompile Include="Seg Tree.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

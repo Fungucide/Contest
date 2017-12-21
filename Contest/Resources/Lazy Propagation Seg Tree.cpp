@@ -1,11 +1,10 @@
 #include <stdio.h>
-#include <stdlib.h>
 #define scan(x) do{while((x=getchar())<'0'); for(x-='0'; '0'<=(_=getchar()); x=(x<<3)+(x<<1)+_-'0');}while(0)
 char _;
 #define MAXN 1
 
 int h = sizeof(int) * 8 - __builtin_clz(n);
-int n, t[2 * MAXN], d[ MAXN];
+int n, t[2 * MAXN], d[MAXN];
 
 void apply(int p, int value) {
 	t[p] += value;
@@ -13,7 +12,10 @@ void apply(int p, int value) {
 }
 
 void build(int p) {
-	while (p > 1) p >>= 1, t[p] = max(t[p << 1], t[p << 1 | 1]) + d[p];
+	while (p > 1) {
+		p >>= 1;
+		t[p] = max(t[p << 1], t[p << 1 | 1]) + d[p];
+	}
 }
 
 void push(int p) {

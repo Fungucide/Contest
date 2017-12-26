@@ -1,0 +1,6 @@
+﻿  tle17c4p5.cpp
+c:\users\blues\documents\visual studio 2015\contest\contest\tle17c4p5\tle17c4p5.cpp(16): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+c:\users\blues\documents\visual studio 2015\contest\contest\tle17c4p5\tle17c4p5.cpp(18): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+c:\users\blues\documents\visual studio 2015\contest\contest\tle17c4p5\tle17c4p5.cpp(31): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+  tle17c4p5.vcxproj -> C:\Users\blues\Documents\Visual Studio 2015\Contest\Contest\Debug\tle17c4p5.exe
+  tle17c4p5.vcxproj -> C:\Users\blues\Documents\Visual Studio 2015\Contest\Contest\Debug\tle17c4p5.pdb (Partial PDB)

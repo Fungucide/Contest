@@ -110,6 +110,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Binary Index Tree.cpp" />
     <ClCompile Include="Disjoint Set.cpp" />
     <ClCompile Include="Lazy Propagation Seg Tree.cpp" />
     <ClCompile Include="Seg Tree.cpp" />

@@ -7,7 +7,7 @@ char _;
 
 using namespace std;
 
-int dig[6],time;
+int dig[6],t;
 int small = 1 << 30;
 vector<int> but;
 
@@ -20,7 +20,7 @@ int main() {
 	getchar();
 	dig[4] = getchar() - '0';
 	dig[5] = getchar() - '0';
-	time = dig[0] * 36000 + dig[1] * 3600 + dig[2] * 600 + dig[3] * 60 + dig[4] * 10 + dig[5];
+	t = dig[0] * 36000 + dig[1] * 3600 + dig[2] * 600 + dig[3] * 60 + dig[4] * 10 + dig[5];
 	getchar();
 	char c;
 	while ((c = getchar()) != '\n')
@@ -39,8 +39,8 @@ int main() {
 							cur += m * 10;
 							for (int n : but) {
 								cur += n;
-								if (abs(cur - time) < small) {
-									small = abs(cur - time);
+								if (abs(cur - t) < small) {
+									small = abs(cur - t);
 									dig[0] = i;
 									dig[1] = j;
 									dig[2] = k;

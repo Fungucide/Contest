@@ -1,1 +1,2 @@
-﻿LINK : fatal error LNK1561: entry point must be defined
+﻿  Source.cpp
+LINK : fatal error LNK1561: entry point must be defined

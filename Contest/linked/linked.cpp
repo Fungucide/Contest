@@ -41,14 +41,14 @@ int main() {
 		c = getchar();
 		if (c == '+') {
 			neg = false;
-			scanf("%lld\n", &crust);
+			scanf("%lld", &crust);
 			if (crust < 0) {
 				neg = true;
 				crust = -crust;
 			}
 			a = kust;
 			kust = cust[kust];
-			cust[a] = crust << 1ll | neg|((pos^back)<<42ll);
+			cust[a] = crust << 1ll | neg | ((pos^back) << 42ll);
 			cust[pos] ^= (back << 42ll) ^ (a << 42ll);
 			cust[back] ^= (pos << 42ll) ^ (a << 42ll);
 			front = pos;
@@ -66,7 +66,7 @@ int main() {
 		}
 		else if (c == '=') {
 			neg = false;
-			scanf("%d\n", &crust);
+			scanf("%d", &crust);
 			if (crust < 0) {
 				neg = true;
 				crust = -crust;
@@ -76,17 +76,20 @@ int main() {
 		else if (c == '-') {
 			cust[front] ^= (pos << 42ll) ^ (back << 42ll);
 			cust[back] ^= (pos << 42ll) ^ (front << 42ll);
-			cust[pos] = a;
+			cust[pos] = kust;
 			kust = pos;
+			pos = front;
+			front = (cust[pos] >> 42ll) ^ back;
 		}
 		else if (c == '!') {
 			if (cust[pos] & 1) {
-				printf("-%lld\n", (cust[pos] & ((1 << 43ll) - 1ll)) >> 1ll);
+				printf("-%lld\n", ((cust[pos] & ((1ll << 42ll) - 1ll))) >> 1ll);
 			}
 			else {
-				printf("%lld\n", (cust[pos] & ((1 << 43ll) - 1ll)) >> 1ll);
+				printf("%lld\n", ((cust[pos] & ((1ll << 42ll) - 1ll))) >> 1ll);
 			}
 		}
+		getchar();
 	}
 	return 0;
 }

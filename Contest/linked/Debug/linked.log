@@ -1,10 +1,8 @@
 ﻿  linked.cpp
-c:\users\william\desktop\contest\contest\contest\linked\linked.cpp(51): warning C4805: '|': unsafe mix of type '__int64' and type 'bool' in operation
-c:\users\william\desktop\contest\contest\contest\linked\linked.cpp(74): warning C4805: '|': unsafe mix of type 'bool' and type '__int64' in operation
-c:\users\william\desktop\contest\contest\contest\linked\linked.cpp(84): warning C4293: '<<': shift count negative or too big, undefined behavior
-c:\users\william\desktop\contest\contest\contest\linked\linked.cpp(87): warning C4293: '<<': shift count negative or too big, undefined behavior
-c:\users\william\desktop\contest\contest\contest\linked\linked.cpp(69): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type '__int64 *'
-  c:\users\william\desktop\contest\contest\contest\linked\linked.cpp(69): note: consider using '%lld' in the format string
-  c:\users\william\desktop\contest\contest\contest\linked\linked.cpp(69): note: consider using '%I64d' in the format string
-  linked.vcxproj -> C:\Users\William\Desktop\Contest\Contest\Contest\Debug\linked.exe
-  linked.vcxproj -> C:\Users\William\Desktop\Contest\Contest\Contest\Debug\linked.pdb (Partial PDB)
+c:\users\blues\documents\visual studio 2015\contest\contest\linked\linked.cpp(51): warning C4805: '|': unsafe mix of type '__int64' and type 'bool' in operation
+c:\users\blues\documents\visual studio 2015\contest\contest\linked\linked.cpp(75): warning C4805: '|': unsafe mix of type 'bool' and type '__int64' in operation
+c:\users\blues\documents\visual studio 2015\contest\contest\linked\linked.cpp(70): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type '__int64 *'
+  c:\users\blues\documents\visual studio 2015\contest\contest\linked\linked.cpp(70): note: consider using '%lld' in the format string
+  c:\users\blues\documents\visual studio 2015\contest\contest\linked\linked.cpp(70): note: consider using '%I64d' in the format string
+  linked.vcxproj -> C:\Users\blues\Documents\Visual Studio 2015\Contest\Contest\Debug\linked.exe
+  linked.vcxproj -> C:\Users\blues\Documents\Visual Studio 2015\Contest\Contest\Debug\linked.pdb (Partial PDB)

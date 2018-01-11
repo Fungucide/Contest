@@ -6,13 +6,13 @@
 
 using namespace std;
 
-struct edge {
+struct node {
 	int w, x, y, a;
-	bool operator<(const edge& rhs) const { if (w != rhs.w) { return w < rhs.w; } else { return a > rhs.a; } }
+	bool operator<(const node& rhs) const { if (w != rhs.w) { return w < rhs.w; } else { return a > rhs.a; } }
 };
 
 int disjoint[MAXN], n, m, d, maxE, days, numEdge = 0;
-vector<edge> edges;
+vector<node> edges;
 
 void construct() {
 	for (int i = 0; i < n; i++)
@@ -50,7 +50,7 @@ int main()
 	sort(edges.begin(), edges.end());
 	int enable = 0;
 	int disable = 0;
-	edge e;
+	node e;
 	construct();
 	int i;
 	for (i = 0; i < edges.size(); i++) {
@@ -77,7 +77,7 @@ int main()
 	}
 
 	construct();
-	for (edge ed : edges) {
+	for (node ed : edges) {
 		if (!cmp(ed.x, ed.y)) {
 			if (ed.w < maxE || (ed.w == maxE && ed.a)) {
 				merge(ed.x, ed.y);

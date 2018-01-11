@@ -22,16 +22,16 @@ char _;
 
 using namespace std;
 
-struct edge {
+struct node {
 	int n, t, h;
-	bool operator<(const edge& s) const {
+	bool operator<(const node& s) const {
 		return t > s.t;
 	}
 };
 
 int N, M, K, dis[MAXN][202], start, des;
-vector<edge> adj[MAXN];
-priority_queue<edge> pq;
+vector<node> adj[MAXN];
+priority_queue<node> pq;
 
 int main() {
 	memset(dis, -1, sizeof dis);
@@ -47,9 +47,9 @@ int main() {
 	pq.push({ start,0,0 });
 
 	while (!pq.empty()) {
-		edge e = pq.top();
+		node e = pq.top();
 		pq.pop();
-		for (edge con : adj[e.n]) {
+		for (node con : adj[e.n]) {
 			if (e.h + con.h < K && dis[con.n][e.h + con.h] == -1 || dis[con.n][e.h + con.h]>e.t + con.t) {
 				dis[con.n][e.h + con.h] = e.t + con.t;
 				pq.push({ con.n,e.t + con.t ,e.h + con.h });

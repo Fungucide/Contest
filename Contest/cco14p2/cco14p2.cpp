@@ -24,12 +24,12 @@ char _;
 
 using namespace std;
 
-struct edge {
+struct node {
 	int a, b, w, c;
 };
 
 int N, M, S, E, len[MAXN], rev[MAXN];
-vector<edge> adj[MAXN], radj[MAXN];
+vector<node> adj[MAXN], radj[MAXN];
 priority_queue<pii> pq;
 
 
@@ -50,7 +50,7 @@ int main() {
 	while (!pq.empty()) {
 		pii p = pq.top();
 		pq.pop();
-		for (edge e : adj[p.second])
+		for (node e : adj[p.second])
 			if (len[e.b] == -1 || len[e.b]>p.first + e.w) {
 				len[e.b] = p.first + e.w;
 				pq.push({ len[e.b],e.b });
@@ -62,7 +62,7 @@ int main() {
 	while (!pq.empty()) {
 		pii p = pq.top();
 		pq.pop();
-		for (edge e : radj[p.second])
+		for (node e : radj[p.second])
 			if (rev[e.b] == -1 || rev[e.b]>p.first + e.w) {
 				rev[e.b] = p.first + e.w;
 				pq.push({ rev[e.b],e.b });

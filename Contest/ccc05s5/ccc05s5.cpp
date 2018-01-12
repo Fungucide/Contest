@@ -8,7 +8,7 @@ using namespace std;
 int bit[MAXS];
 int scores[MAXS];
 int o[MAXS];
-unordered_map<int, int> map;
+unordered_map<int, int> cust;
 int t;
 
 void update(int p, int v) {
@@ -36,14 +36,14 @@ int main()
 	sort(scores, scores + t);
 	int idx = 1;
 	for (int i = 0; i < t; i++) {
-		if (map.find(scores[i]) == map.end()) {
-			map.insert({ scores[i], idx });
+		if (cust.find(scores[i]) == cust.end()) {
+			cust.insert({ scores[i], idx });
 			++idx;
 		}
 	}
 	for (int i = 0; i < t; i++) {
-		v += i - query(map.at(o[i])) + 1;
-		update(map.at(o[i]), 1);
+		v += i - query(cust.at(o[i])) + 1;
+		update(cust.at(o[i]), 1);
 	}
 	printf("%.2f", v / (double)t);
 	return 0;

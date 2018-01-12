@@ -6,7 +6,7 @@ using namespace std;
 
 int n, m;
 int dp[MAXNM][MAXNM][3];
-int map[MAXNM][MAXNM];
+int cust[MAXNM][MAXNM];
 bool v[MAXNM][MAXNM];
 int dir[3][2] = { { 1,0 },{ 0,-1 },{ 0,1 } };
 
@@ -14,14 +14,14 @@ int dir[3][2] = { { 1,0 },{ 0,-1 },{ 0,1 } };
 int f(int x, int y, int d) {
 	//cout << x << " " << y << "\n";
 	if (x == m - 1 && y == 0) {
-		return map[x][0];
+		return cust[x][0];
 	}
 	else if (d == -1 || dp[x][y][d] == -1) {
 		int max = 0;
 		for (int i = 0; i < 3; i++) {
 			//cout << ((d == 2 && i != 1) || (d == 1 && i != 2)||(d==0)) << " " << (dir[i][0] + x < m) << " " << (dir[i][1] + y < n) << " " << (dir[i][1] + y != -1) << " " << (map[dir[i][0] + x][dir[i][1] + y] != -1) << endl;
 			if (dir[i][0] + x < m && dir[i][1] + y < n && dir[i][1] + y != -1 && !v[dir[i][0] + x][dir[i][1] + y]) {
-				int cur = map[x][y] + f(dir[i][0] + x, dir[i][1] + y, i);
+				int cur = cust[x][y] + f(dir[i][0] + x, dir[i][1] + y, i);
 				if (cur > max) {
 					max = cur;
 				}
@@ -43,13 +43,13 @@ int main()
 			for (int j = 0; j < m; j++) {
 				scanf_s("%c", &c);
 				if (c == '.') {
-					map[j][i] = 0;
+					cust[j][i] = 0;
 				}
 				else if (c != '*') {
-					map[j][i] = c - '0';
+					cust[j][i] = c - '0';
 				}
 				else {
-					map[j][i] = -1;
+					cust[j][i] = -1;
 					v[j][i] = true;
 				}
 			}

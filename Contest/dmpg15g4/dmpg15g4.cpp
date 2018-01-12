@@ -11,7 +11,7 @@ using namespace std;
 
 int N, X;
 double cust[MAXN];
-unordered_map<double, int> map;
+unordered_map<double, int> cust;
 pair<double, double> deg[MAXN];
 BIT bit[MAXN];
 
@@ -42,15 +42,15 @@ int main() {
 	sort(cust, cust + N);
 
 	for (int i = 0; i < N;i++) {
-		if (map.find(cust[i]) == map.end())
-			map[cust[i]] = map.size();
+		if (cust.find(cust[i]) == cust.end())
+			cust[cust[i]] = cust.size();
 	}
 
 	long long res = 0;
 	for (int i = 0;i < N;i++) {
-		long long q = (i - query(map[deg[i].second] - 1));
+		long long q = (i - query(cust[deg[i].second] - 1));
 		res += q*q;
-		update(map[deg[i].second], 1);
+		update(cust[deg[i].second], 1);
 	}
 	printf("%lld\n", res);
 

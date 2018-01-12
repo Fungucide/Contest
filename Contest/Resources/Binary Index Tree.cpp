@@ -1,4 +1,4 @@
-#ifdef DMOJ
+#ifndef _MSC_VER
 
 #include <bits/stdc++.h>
 
@@ -13,9 +13,11 @@
 #include <vector>
 #include <unordered_map>
 #include <queue>
+#define scanf scanf_s
 
 #endif
 
+#define ll unsigned long long
 #define MAXN 100000//1e5
 #define scan(x) do{while((x=getchar())<'0'); for(x-='0'; '0'<=(_=getchar()); x=(x<<3)+(x<<1)+_-'0');}while(0)
 char _;

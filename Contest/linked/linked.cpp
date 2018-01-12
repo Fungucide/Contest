@@ -26,7 +26,7 @@ char _;
 using namespace std;
 
 ull N, kust = 2, pos = 1, front = 0, back = 0;
-ull cust[1000001];//[0,0] bit = Neg or not Next  [1,43] Bits Number [44,64]
+ull cust[1000002];//[0,0] bit = Neg or not Next  [1,43] Bits Number [44,64]
 
 int main() {
 	scan(N);
@@ -35,7 +35,7 @@ int main() {
 	ull krust;
 	ll crust;
 	bool neg = false;
-	for (int i = 2; i < 1000001; i++) {
+	for (int i = 2; i < 1000002; i++) {
 		cust[i] = i + 1;
 	}
 	cust[0] = 1 << 44ull;
@@ -46,15 +46,15 @@ int main() {
 			scanf("%lld", &crust);
 			if (crust < 0) {
 				neg = true;
-				krust = -crust;
+				krust = abs(crust);
 			}
 			else
 				krust = crust;
 			a = kust;
 			kust = cust[kust];
 			cust[a] = krust << 1ull | neg | ((pos^back) << 44ull);
-			cust[pos] ^= (back << 44ull) ^ (a << 44ull);
-			cust[back] ^= (pos << 44ull) ^ (a << 44ull);
+			cust[pos] ^= (back ^a) << 44ull;
+			cust[back] ^= (pos ^ a) << 44ull;
 			front = pos;
 			pos = a;
 		}
@@ -70,18 +70,18 @@ int main() {
 		}
 		else if (c == '=') {
 			neg = false;
-			scanf("%d", &crust);
+			scanf("%lld", &crust);
 			if (crust < 0) {
 				neg = true;
 				krust = -crust;
 			}
 			else
 				krust = crust;
-			cust[pos] = neg | krust << 1ull | ((cust[pos] >> 44ull) << 44ull);
+			cust[pos] = neg | krust << 1ull | ((front^back) << 44ull);
 		}
 		else if (c == '-') {
-			cust[front] ^= (pos << 44ull) ^ (back << 44ull);
-			cust[back] ^= (pos << 44ull) ^ (front << 44ull);
+			cust[front] ^= (pos^back) << 44ull;
+			cust[back] ^= (pos ^front) << 44ull;
 			cust[pos] = kust;
 			kust = pos;
 			pos = front;
@@ -89,10 +89,10 @@ int main() {
 		}
 		else if (c == '!') {
 			if (cust[pos] & 1) {
-				printf("-%llu\n", (cust[pos]>>1ull) & 8796093022207ull);
+				printf("-%llu\n", (cust[pos] >> 1ull) & 8796093022207ull);
 			}
 			else {
-				printf("%llu\n", (cust[pos]>>1ull) & 8796093022207ull);
+				printf("%llu\n", (cust[pos] >> 1ull) & 8796093022207ull);
 			}
 		}
 		getchar();

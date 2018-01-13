@@ -20,29 +20,25 @@
 #define ll long long
 #define ull unsigned long long
 #define pii pair<int,int>
+#define pll pair<long,long>
 #define MAXN 100000//1e5
 #define scan(x) do{while((x=getchar())<'0'); for(x-='0'; '0'<=(_=getchar()); x=(x<<3)+(x<<1)+_-'0');}while(0)
 char _;
 
 using namespace std;
 
-struct update {
-	ll val;
-	int height;
-	ll change;
-
-	bool operator<(const update& a)const {
-		return height < a.height;
-	}
-};
-
 int N, h[MAXN], first[MAXN], logtwo[2 * MAXN], S, par[MAXN];
 ll res[MAXN];
 pii table[20][2 * MAXN];
 list<int> adj[MAXN];
 vector<int> tour, ind[MAXN];
-priority_queue<update> u[MAXN];
 priority_queue<pii> q;
+pll update[MAXN];//Value,Increment
+pll updateU[MAXN];//Value change,Increment Change
+
+pll operator+(const pll &a, const pll &b) {
+	return{ a.first + b.first,a.second + b.second };
+}
 
 void dfs(int n, int hei) {
 	first[n] = tour.size();
@@ -76,85 +72,97 @@ void build(int n) {
 }
 
 pii query(int l, int r) {
+	l = first[l];
+	r = first[r];
 	if (l > r)
 		swap(l, r);
+	r++;
 	int tmp = logtwo[r - l];
 	return min(table[tmp][l], table[tmp][r - (1 << tmp)]);
 }
 
 int main() {
 	memset(first, -1, sizeof first);
-	scan(N);scan(S);
+	scan(N); scan(S);
 	int a, b, c;
-	for (int i = 1;i < N;i++) {
-		scan(a);scan(b);
+	for (int i = 1; i < N; i++) {
+		scan(a); scan(b);
 		adj[--a].push_back(--b);
 		adj[b].push_back(a);
 	}
 	dfs(0, 0);
 	build(tour.size() - 1);
 	int lca, lca2, leftLength, rightLength, constant;
-	for (int i = 0; i < S;i++) {
-		scan(a);scan(b);scan(c);
-		lca = query(first[--a], first[--b]).second;
+	for (int i = 0; i < S; i++) {
+		scan(a); scan(b); scan(c);
+		lca = query(--a, --b).second;
 		c--;
 		//Check to see if c lies off the path from a->b
 		if (h[c] <= h[lca]) {//Above
 			constant = h[lca] - h[c];
 			leftLength = h[a] - h[lca];
 			rightLength = h[b] - h[lca];
-			u[a].push({ constant + leftLength,h[lca],-1 });
-			u[b].push({ constant + rightLength,h[lca],-1 });
+			update[a] = update[a] + pll{ constant + leftLength, -1 };
+			update[b] = update[b] + pll{ constant + rightLength, -1 };
+			updateU[lca] = updateU[lca] + pll{ -constant << 1,2 };
 			res[lca] -= constant;
+			printf("1\n");
 		}
-		else if (h[(lca2 = (query(first[a], first[c]).second))] < h[lca]) {
+		else if (h[(lca2 = (query(a, c).second))] > h[lca]) {
 			constant = h[c] - h[lca2];
 			leftLength = h[a] - h[lca2];
 			rightLength = h[lca2] + h[b] - (h[lca] << 1);
-			u[a].push({ constant + leftLength,h[lca2],-1 });
+
+			update[a] = update[a] + pll{ constant + leftLength,-1 };
+			updateU[lca2] = updateU[lca2] + pll{ -constant,1 };
 			res[lca2] -= constant;
-			u[lca2].push({ constant,h[lca],1 });
-			u[b].push({ constant + rightLength,h[lca],-1 });
+
+			update[lca2] = update[lca2] + pll{ constant,1 };
+			updateU[lca] = updateU[lca] + pll{ -(constant + h[lca2] - h[lca]) << 1 ,0 };
+			update[b] = update[b] + pll{ constant + rightLength,-1 };
 			res[lca] -= constant + h[lca2] - h[lca];
+			printf("2\n");
 		}
-		else if (h[(lca2 = (query(first[b], first[c]).second))] < h[lca]) {
+		else if (h[(lca2 = (query(b, c).second))] > h[lca]) {
 			constant = h[c] - h[lca2];
 			leftLength = h[lca2] + h[a] - (h[lca] << 1);
 			rightLength = h[b] - h[lca2];
-			u[lca2].push({ constant,h[lca],1 });
-			u[a].push({ constant + leftLength,h[lca],-1 });
-			res[lca] -= constant + h[lca2] - h[lca];
-			u[b].push({ constant + rightLength,h[lca2],-1 });
+
+			update[b] = update[b] + pll{ constant + rightLength,-1 };
+			updateU[lca2] = updateU[lca2] + pll{ -constant,1 };
 			res[lca2] -= constant;
+
+			update[lca2] = update[lca2] + pll{ constant,1 };
+			updateU[lca] = updateU[lca] + pll{ -(constant + h[lca2] - h[lca]) << 1,0 };
+			update[a] = update[a] + pll{ constant + leftLength,-1 };
+			res[lca] -= constant + h[lca2] - h[lca];
+			printf("3\n");
 		}
-		else if (h[lca2] == h[lca]) {
-			constant = h[lca2] - h[lca];
+		else if (h[lca2] <= h[lca]) {
+			constant = h[c] + h[lca] - (h[lca2] << 1);
 			leftLength = h[a] - h[lca];
 			rightLength = h[b] - h[lca];
-			u[a].push({ constant + leftLength,h[lca],-1 });
-			u[b].push({ constant + rightLength,h[lca],-1 });
+			update[a] = update[a] + pll{ constant + leftLength, -1 };
+			update[b] = update[b] + pll{ constant + rightLength, -1 };
+			updateU[lca] = updateU[lca] + pll{ -constant << 1,2 };
 			res[lca] -= constant;
+			printf("4\n");
 		}
 	}
 
-	int idx;
-	update up;
+	int idx = -1;
 
 	while (!q.empty()) {
 		idx = q.top().second;
 		q.pop();
-		while (!u[idx].empty()) {
-			up = u[idx].top();
-			u[idx].pop();
-			res[idx] += up.val;
-			if (h[idx] != up.height) {
-				up.val += up.change;
-				u[par[idx]].push(up);
-			}
-		}
+		res[idx] += update[idx].first;
+		update[idx] = update[idx] + updateU[idx];
+		update[idx].first += update[idx].second;
+		if (idx != 0)
+			update[par[idx]] = update[par[idx]] + update[idx];
 	}
 
-	for (int i = 0;i < N;i++) {
+	for (int i = 0; i < N; i++) {
 		printf("%lld ", res[i]);
 	}
 	return 0;

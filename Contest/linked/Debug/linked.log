@@ -1,6 +1,1 @@
-﻿  linked.cpp
-c:\users\blues\documents\visual studio 2015\contest\contest\linked\linked.cpp(41): warning C4293: '<<': shift count negative or too big, undefined behavior
-c:\users\blues\documents\visual studio 2015\contest\contest\linked\linked.cpp(55): warning C4805: '|': unsafe mix of type 'unsigned __int64' and type 'bool' in operation
-c:\users\blues\documents\visual studio 2015\contest\contest\linked\linked.cpp(80): warning C4805: '|': unsafe mix of type 'bool' and type 'unsigned __int64' in operation
-  linked.vcxproj -> C:\Users\blues\Documents\Visual Studio 2015\Contest\Contest\Debug\linked.exe
-  linked.vcxproj -> C:\Users\blues\Documents\Visual Studio 2015\Contest\Contest\Debug\linked.pdb (Partial PDB)
+﻿

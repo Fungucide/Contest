@@ -61,11 +61,18 @@ void build(int n) {
 }
 
 pii query(int l, int r) {
+	l = first[l];
+	r = first[r];
+	if (l > r)
+		swap(l, r);
+	r++;
 	int tmp = logtwo[r - l];
 	return min(table[tmp][l], table[tmp][r - (1 << tmp)]);
 }
 
 int main() {
 	scan(N);
+	dfs(0, 0);
+	build(tour.size() - 1);
 	return 0;
 }

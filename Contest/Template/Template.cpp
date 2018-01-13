@@ -30,6 +30,5 @@ int N;
 
 int main() {
 	scan(N);
-
 	return 0;
 }

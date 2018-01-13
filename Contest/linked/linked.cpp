@@ -52,21 +52,21 @@ int main() {
 				krust = crust;
 			a = kust;
 			kust = cust[kust];
-			cust[a] = krust << 1ull | neg | ((pos^back) << 44ull);
-			cust[pos] ^= (back ^a) << 44ull;
-			cust[back] ^= (pos ^ a) << 44ull;
+			cust[a] = krust << 1 | neg | ((pos^back) << 44);
+			cust[pos] ^= (back ^a) << 44;
+			cust[back] ^= (pos ^ a) << 44;
 			front = pos;
 			pos = a;
 		}
 		else if (c == '<') {
 			front = pos;
 			pos = back;
-			back = (cust[pos] >> 44ull) ^ front;
+			back = (cust[pos] >> 44) ^ front;
 		}
 		else if (c == '>') {
 			back = pos;
 			pos = front;
-			front = (cust[pos] >> 44ull) ^ back;
+			front = (cust[pos] >> 44) ^ back;
 		}
 		else if (c == '=') {
 			neg = false;
@@ -77,22 +77,22 @@ int main() {
 			}
 			else
 				krust = crust;
-			cust[pos] = neg | krust << 1ull | ((front^back) << 44ull);
+			cust[pos] = neg | krust << 1 | ((front^back) << 44);
 		}
 		else if (c == '-') {
-			cust[front] ^= (pos^back) << 44ull;
-			cust[back] ^= (pos ^front) << 44ull;
+			cust[front] ^= (pos^back) << 44;
+			cust[back] ^= (pos ^front) << 44;
 			cust[pos] = kust;
 			kust = pos;
 			pos = front;
-			front = (cust[pos] >> 44ull) ^ back;
+			front = (cust[pos] >> 44) ^ back;
 		}
 		else if (c == '!') {
 			if (cust[pos] & 1) {
-				printf("-%llu\n", (cust[pos] >> 1ull) & 8796093022207ull);
+				printf("-%llu\n", (cust[pos] >> 1) & ((1ull << 43) - 1ull));
 			}
 			else {
-				printf("%llu\n", (cust[pos] >> 1ull) & 8796093022207ull);
+				printf("%llu\n", (cust[pos] >> 1) & ((1ull << 43) - 1ull));
 			}
 		}
 		getchar();

@@ -29,7 +29,7 @@ using namespace std;
 int N, h[MAXN], first[MAXN], logtwo[2 * MAXN];
 pii table[20][2 * MAXN];
 list<int> adj[MAXN];
-vector<int> tour, ind[MAXN];
+vector<int> tour, ind[MAXN];//ind for where it's been
 
 void dfs(int n, int hei) {
 	first[n] = tour.size();
@@ -71,6 +71,7 @@ pii query(int l, int r) {
 }
 
 int main() {
+	memset(first, -1, sizeof first);
 	scan(N);
 	dfs(0, 0);
 	build(tour.size() - 1);

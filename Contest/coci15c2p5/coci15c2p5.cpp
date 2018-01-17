@@ -26,7 +26,7 @@ char _;
 using namespace std;
 
 int N, bit[MAXN], val[MAXN], sum[MAXN], psa[MAXN], average;
-unordered_map<int, int> cust;
+unordered_map<int, int> start;
 //NOTE: p is inclusive [0,p]
 void update(int p, BIT v) {
 	p++;
@@ -57,15 +57,15 @@ int main() {
 	}
 	sort(psa, psa + N + 1);
 	for (int i = 0; i <= N; i++) {
-		if (cust.find(psa[i]) == cust.end())
-			cust[psa[i]] = cust.size();
+		if (start.find(psa[i]) == start.end())
+			start[psa[i]] = start.size();
 	}
 
 	ll res = 0;
-	update(cust[0],1);
+	update(start[0],1);
 	for (int i = 0; i < N; i++) {
-		res += (ll)(query(cust[sum[i]]));
-		update(cust[sum[i]], 1);
+		res += (ll)(query(start[sum[i]]));
+		update(start[sum[i]], 1);
 	}
 	printf("%lld\n", res);
 	return 0;

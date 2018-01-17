@@ -24,7 +24,7 @@ char _;
 using namespace std;
 
 list<int> adj[MAXN];
-unordered_map<int, vector<int>> cust[MAXN];
+unordered_map<int, vector<int>> start[MAXN];
 int N, Q, h[MAXN], bright[MAXN];
 
 void dfs(int n, int hei, int par) {
@@ -76,8 +76,8 @@ int main() {
 		vector<int> cus;
 		abal = a;bbal = b;
 		while (a != b) {
-			if (cust[a].find(b) != cust[a].end()) {
-				vector<int> custsu = cust[a][b];
+			if (start[a].find(b) != start[a].end()) {
+				vector<int> custsu = start[a][b];
 				v.insert(end(v), begin(custsu), end(custsu));
 				custed = true;
 				break;
@@ -97,8 +97,8 @@ int main() {
 		}
 		if (!custed) {
 			cus.push_back(bright[a]);
-			cust[abal][bbal] = cus;
-			cust[bbal][abal] = cus;
+			start[abal][bbal] = cus;
+			start[bbal][abal] = cus;
 			v.insert(end(v), begin(cus), end(cus));
 		}
 		sort(v.begin(), v.end());

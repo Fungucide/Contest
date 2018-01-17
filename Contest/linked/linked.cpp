@@ -25,8 +25,8 @@ char _;
 
 using namespace std;
 
-ull N, kust = 2, pos = 1, front = 0, back = 0;
-ull cust[1000002];//[0,0] bit = Neg or not Next  [1,43] Bits Number [44,64]
+ull N, high = 2, pos = 1, krust = 0, back = 0;
+ull start[1000002];//[0,0] bit = Neg or not Next  [1,43] Bits Number [44,64]
 
 int main() {
 	scan(N);
@@ -36,9 +36,9 @@ int main() {
 	ll crust;
 	bool neg = false;
 	for (int i = 2; i < 1000002; i++) {
-		cust[i] = i + 1;
+		start[i] = i + 1;
 	}
-	cust[0] = 1 << 44ull;
+	start[0] = 1 << 44ull;
 	for (int i = 0; i < N; i++) {
 		c = getchar();
 		if (c == '+') {
@@ -50,23 +50,23 @@ int main() {
 			}
 			else
 				krust = crust;
-			a = kust;
-			kust = cust[kust];
-			cust[a] = krust << 1 | neg | ((pos^back) << 44);
-			cust[pos] ^= (back ^a) << 44;
-			cust[back] ^= (pos ^ a) << 44;
-			front = pos;
+			a = high;
+			high = start[high];
+			start[a] = krust << 1 | neg | ((pos^back) << 44);
+			start[pos] ^= (back ^a) << 44;
+			start[back] ^= (pos ^ a) << 44;
+			krust = pos;
 			pos = a;
 		}
 		else if (c == '<') {
-			front = pos;
+			krust = pos;
 			pos = back;
-			back = (cust[pos] >> 44) ^ front;
+			back = (start[pos] >> 44) ^ krust;
 		}
 		else if (c == '>') {
 			back = pos;
-			pos = front;
-			front = (cust[pos] >> 44) ^ back;
+			pos = krust;
+			krust = (start[pos] >> 44) ^ back;
 		}
 		else if (c == '=') {
 			neg = false;
@@ -77,22 +77,22 @@ int main() {
 			}
 			else
 				krust = crust;
-			cust[pos] = neg | krust << 1 | ((front^back) << 44);
+			start[pos] = neg | krust << 1 | ((krust^back) << 44);
 		}
 		else if (c == '-') {
-			cust[front] ^= (pos^back) << 44;
-			cust[back] ^= (pos ^front) << 44;
-			cust[pos] = kust;
-			kust = pos;
-			pos = front;
-			front = (cust[pos] >> 44) ^ back;
+			start[krust] ^= (pos^back) << 44;
+			start[back] ^= (pos ^krust) << 44;
+			start[pos] = high;
+			high = pos;
+			pos = krust;
+			krust = (start[pos] >> 44) ^ back;
 		}
 		else if (c == '!') {
-			if (cust[pos] & 1) {
-				printf("-%llu\n", (cust[pos] >> 1) & ((1ull << 43) - 1ull));
+			if (start[pos] & 1) {
+				printf("-%llu\n", (start[pos] >> 1) & ((1ull << 43) - 1ull));
 			}
 			else {
-				printf("%llu\n", (cust[pos] >> 1) & ((1ull << 43) - 1ull));
+				printf("%llu\n", (start[pos] >> 1) & ((1ull << 43) - 1ull));
 			}
 		}
 		getchar();

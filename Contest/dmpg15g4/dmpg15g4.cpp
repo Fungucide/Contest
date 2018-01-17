@@ -10,8 +10,8 @@ char _;
 using namespace std;
 
 int N, X;
-double cust[MAXN];
-unordered_map<double, int> cust;
+double start[MAXN];
+unordered_map<double, int> start;
 pair<double, double> deg[MAXN];
 BIT bit[MAXN];
 
@@ -35,22 +35,22 @@ int main() {
 	for (int i = 0; i < N;i++) {
 		scan(a);scan(b);
 		deg[i] = { (double)b / (double)a,(double)(b) / (double)(X - a) };
-		cust[i] = deg[i].second;
+		start[i] = deg[i].second;
 	}
 
 	sort(deg, deg + N, greater<pair<double, double>>());
-	sort(cust, cust + N);
+	sort(start, start + N);
 
 	for (int i = 0; i < N;i++) {
-		if (cust.find(cust[i]) == cust.end())
-			cust[cust[i]] = cust.size();
+		if (start.find(start[i]) == start.end())
+			start[start[i]] = start.size();
 	}
 
 	long long res = 0;
 	for (int i = 0;i < N;i++) {
-		long long q = (i - query(cust[deg[i].second] - 1));
+		long long q = (i - query(start[deg[i].second] - 1));
 		res += q*q;
-		update(cust[deg[i].second], 1);
+		update(start[deg[i].second], 1);
 	}
 	printf("%lld\n", res);
 

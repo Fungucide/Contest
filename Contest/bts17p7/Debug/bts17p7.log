@@ -1,16 +1,2 @@
-﻿  bts17p7.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\utility(145): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
-  c:\users\william\desktop\contest\contest\contest\bts17p7\bts17p7.cpp(105): note: see reference to function template instantiation 'std::pair<long,long>::pair<__int64,int,void>(_Other1 &&,_Other2 &&) noexcept' being compiled
-          with
-          [
-              _Other1=__int64,
-              _Other2=int
-          ]
-  c:\users\william\desktop\contest\contest\contest\bts17p7\bts17p7.cpp(105): note: see reference to function template instantiation 'std::pair<long,long>::pair<__int64,int,void>(_Other1 &&,_Other2 &&) noexcept' being compiled
-          with
-          [
-              _Other1=__int64,
-              _Other2=int
-          ]
-  bts17p7.vcxproj -> C:\Users\William\Desktop\Contest\Contest\Contest\Debug\bts17p7.exe
-  bts17p7.vcxproj -> C:\Users\William\Desktop\Contest\Contest\Contest\Debug\bts17p7.pdb (Partial PDB)
+﻿  bts17p7.vcxproj -> C:\Users\blues\Documents\Visual Studio 2015\Contest\Contest\Debug\bts17p7.exe
+  bts17p7.vcxproj -> C:\Users\blues\Documents\Visual Studio 2015\Contest\Contest\Debug\bts17p7.pdb (Partial PDB)

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-unordered_map<int, int> cust;
+unordered_map<int, int> start;
 int n, order[MAXN], bit[MAXN];
 
 void update(int p, int v) {
@@ -28,11 +28,11 @@ int main()
 	for (int i = 1; i <= n; i++) {
 		update(i, 1);
 		scanf_s("%d", &a);
-		cust[a] = i;
+		start[a] = i;
 	}
 	for (int i = 1; i <= n; i++) {
 		scanf_s("%d", &a);
-		order[i] = cust[a];
+		order[i] = start[a];
 	}
 
 	int cur = 1, start = -1, end = -1, length = 0;

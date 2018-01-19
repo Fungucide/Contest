@@ -92,14 +92,24 @@ int main() {
 	}
 	dfs(0, 0);
 	build(tour.size() - 1);
-	ll lca, lca2, lca3, leftLength, rightLength, constant;
+	int lca, lca2, leftLength, rightLength, constant;
 	for (int i = 0; i < S; i++) {
 		scan(a); scan(b); scan(c);
-		lca = query(--a, --b).second;
 		c--;
+		lca = query(--a, --b).second;
+		lca2 = query(lca, c).second;
 		//Check to see if c lies off the path from a->b
-		if (h[c] <= h[lca]) {//Above
-			constant = h[lca] - h[c];
+		if (c == lca) {
+			constant = 0;
+			leftLength = h[a] - h[lca];
+			rightLength = h[b] - h[lca];
+			update[a] = update[a] + pll{ constant + leftLength, -1 };
+			update[b] = update[b] + pll{ constant + rightLength, -1 };
+			updateU[lca] = updateU[lca] + pll{ -constant << 1,2 };
+			res[lca] -= constant;
+		}
+		else if (h[lca2] < h[lca]) {//Above
+			constant = h[c] + h[lca] - (h[lca2] << 1);
 			leftLength = h[a] - h[lca];
 			rightLength = h[b] - h[lca];
 			update[a] = update[a] + pll{ constant + leftLength, -1 };
@@ -121,21 +131,21 @@ int main() {
 			update[b] = update[b] + pll{ constant + rightLength,-1 };
 			res[lca] -= constant + h[lca2] - h[lca];
 		}
-		else if (h[(lca3 = (query(b, c).second))] > h[lca]) {
-			constant = h[c] - h[lca3];
-			leftLength = h[lca3] + h[a] - (h[lca] << 1);
-			rightLength = h[b] - h[lca3];
+		else if (h[(lca2 = (query(b, c).second))] > h[lca]) {
+			constant = h[c] - h[lca2];
+			leftLength = h[lca2] + h[a] - (h[lca] << 1);
+			rightLength = h[b] - h[lca2];
 
 			update[b] = update[b] + pll{ constant + rightLength,-1 };
-			updateU[lca3] = updateU[lca3] + pll{ -constant,1 };
-			res[lca3] -= constant;
+			updateU[lca2] = updateU[lca2] + pll{ -constant,1 };
+			res[lca2] -= constant;
 
-			update[lca3] = update[lca3] + pll{ constant,1 };
-			updateU[lca] = updateU[lca] + pll{ -(constant + h[lca3] - h[lca]) << 1,0 };
+			update[lca2] = update[lca2] + pll{ constant,1 };
+			updateU[lca] = updateU[lca] + pll{ -(constant + h[lca2] - h[lca]) << 1,0 };
 			update[a] = update[a] + pll{ constant + leftLength,-1 };
-			res[lca] -= constant + h[lca3] - h[lca];
+			res[lca] -= constant + h[lca2] - h[lca];
 		}
-		else if (h[lca2] < h[lca]) {
+		else if (h[lca2] <= h[lca]) {
 			constant = h[c] + h[lca] - (h[lca2] << 1);
 			leftLength = h[a] - h[lca];
 			rightLength = h[b] - h[lca];
@@ -143,27 +153,6 @@ int main() {
 			update[b] = update[b] + pll{ constant + rightLength, -1 };
 			updateU[lca] = updateU[lca] + pll{ -constant << 1,2 };
 			res[lca] -= constant;
-		}
-		else if (h[lca3] < h[lca]) {
-			constant = h[c] + h[lca] - (h[lca3] << 1);
-			leftLength = h[a] - h[lca];
-			rightLength = h[b] - h[lca];
-			update[a] = update[a] + pll{ constant + leftLength, -1 };
-			update[b] = update[b] + pll{ constant + rightLength, -1 };
-			updateU[lca] = updateU[lca] + pll{ -constant << 1,2 };
-			res[lca] -= constant;
-		}
-		else if (lca2 == lca || lca3 == lca) {
-			constant = h[c] - h[lca];
-			leftLength = h[a] - h[lca];
-			rightLength = h[b] - h[lca];
-			update[a] = update[a] + pll{ constant + leftLength, -1 };
-			update[b] = update[b] + pll{ constant + rightLength, -1 };
-			updateU[lca] = updateU[lca] + pll{ -constant << 1,2 };
-			res[lca] -= constant;
-		}
-		else {
-			printf("Here\n");
 		}
 	}
 

@@ -1,0 +1,4 @@
+﻿  ccc15s3.cpp
+c:\users\blues\documents\visual studio 2015\contest\contest\ccc15s3\ccc15s3.cpp(39): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<int>>>'
+  ccc15s3.vcxproj -> C:\Users\blues\Documents\Visual Studio 2015\Contest\Contest\Debug\ccc15s3.exe
+  ccc15s3.vcxproj -> C:\Users\blues\Documents\Visual Studio 2015\Contest\Contest\Debug\ccc15s3.pdb (Partial PDB)

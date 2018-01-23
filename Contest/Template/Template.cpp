@@ -13,6 +13,9 @@
 #include <vector>
 #include <unordered_map>
 #include <queue>
+#include <list>
+#include <stack>
+#include <set>
 #define scanf scanf_s
 
 #endif

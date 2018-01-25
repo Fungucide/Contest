@@ -1,0 +1,4 @@
+﻿  ccc12s4.cpp
+c:\users\blues\source\repos\contest\contest\ccc12s4\ccc12s4.cpp(30): warning C4554: '<<': check operator precedence for possible error; use parentheses to clarify precedence
+c:\users\blues\source\repos\contest\contest\ccc12s4\ccc12s4.cpp(39): warning C4554: '<<': check operator precedence for possible error; use parentheses to clarify precedence
+  ccc12s4.vcxproj -> C:\Users\blues\source\repos\Contest\Contest\Debug\ccc12s4.exe

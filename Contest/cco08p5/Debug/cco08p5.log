@@ -1,0 +1,4 @@
+﻿  cco08p5.cpp
+c:\users\blues\source\repos\contest\contest\cco08p5\cco08p5.cpp(7): error C2148: total size of array must not exceed 0x7fffffff bytes
+c:\users\blues\source\repos\contest\contest\cco08p5\cco08p5.cpp(11): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+c:\users\blues\source\repos\contest\contest\cco08p5\cco08p5.cpp(12): error C2059: syntax error: ')'

@@ -1,7 +1,25 @@
+#ifndef _MSC_VER
+
+#include <bits/stdc++.h>
+
+#else
+
 #include <stdio.h>
+#include <iostream>
 #include <math.h>
+#include <algorithm>
+#include <functional>
+#include <string>
 #include <vector>
-#include <string.h>
+#include <unordered_map>
+#include <queue>
+#include <list>
+#include <stack>
+#include <set>
+#define scanf scanf_s
+
+#endif
+
 #define MAXN 150001
 #define SIZE 400
 
@@ -17,24 +35,24 @@ inline int f(int i) {
 }
 
 int main() {
-	scanf_s("%d%d%d", &n, &m, &q);
+	scanf("%d%d%d", &n, &m, &q);
 	memset(rightMost, -1, sizeof rightMost);
 	for (int i = 1; i <= n; i++) {
-		scanf_s("%d", &l[i]);
+		scanf("%d", &l[i]);
 		lIdx[l[i]].push_back(i);
 		idx[i] = lIdx[l[i]].size() - 1;
 		b[i] = i / SIZE;
 		rightMost[l[i]][b[i]] = i;
 	}
 	for (int i = 1; i <= n; i++) {
-		scanf_s("%d", &a[i]);
+		scanf("%d", &a[i]);
 		s[b[i]] += a[i];
 	}
 	int a, l, r, x;
 	for (int cust = 0; cust < q; cust++) {
-		scanf_s("%d", &a);
+		scanf("%d", &a);
 		if (a == 1) {
-			scanf_s("%d%d", &l, &r);
+			scanf("%d%d", &l, &r);
 			int res = 0;
 			if (r - l < SIZE) {
 				for (int i = l; i <= r; i++) {
@@ -58,7 +76,7 @@ int main() {
 			printf("%d\n", res);
 		}
 		else {
-			scanf_s("%d", &x);
+			scanf("%d", &x);
 			int first = -1;
 			int val = 0;
 			for (int i = 0; i < SIZE; i++) {

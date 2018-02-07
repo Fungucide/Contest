@@ -43,33 +43,33 @@ priority_queue<edge> pq;
 vector<edge> adj;
 vector<pii> mst[MAXN];
 
-void construct() {
+inline void construct() {
 	for (int i = 0; i < N; i++)
 		disjoint[i] = i;
 }
 
-int find(int x) {
+inline int find(int x) {
 	if (disjoint[x] == x)
 		return x;
 	return disjoint[x] = find(disjoint[x]);
 }
 
-bool cmp(int x, int y) {
+inline bool cmp(int x, int y) {
 	return find(x) == find(y);
 }
 
-void merge(int x, int y) {
+inline void merge(int x, int y) {
 	disjoint[find(y)] = find(x);
 }
 
-void cust() {
-	for (vector<pii> v : mst)
+inline void cust() {
+	for (auto& v : mst)
 		v.clear();
 	for (edge e : adj)
 		pq.push(e);
 	int nEdges = N - 1;
 	construct();
-	while (pq.empty()) {
+	while (!pq.empty()) {
 		edge e = pq.top();
 		pq.pop();
 		if (!cmp(e.a, e.b)) {
@@ -82,20 +82,19 @@ void cust() {
 	update = false;
 }
 
-bool dfs(int s, int e, int w) {
+inline bool dfs(int s, int e, int w) {
 	bool res = false;
+	v[s] = true;
 	for (pii p : mst[s]) {
 		if (!v[p.first] && p.second >= w) {
 			if (p.first == e)
 				return true;
-			else {
-				res = dfs(p.first, e, w);
-				if (res)
-					break;
+			else if (dfs(p.first, e, w)) {
+				res = true;
+				break;
 			}
 		}
 	}
-	v[s] = true;
 	return res;
 }
 
@@ -105,7 +104,6 @@ int main() {
 	for (int i = 0; i < M; i++) {
 		scan(a); scan(b); scan(c);
 		adj.push_back({ --a,--b,c });
-		update = true;
 	}
 	scan(Q);
 	for (int i = 0; i < Q; i++) {
@@ -113,6 +111,7 @@ int main() {
 		--b;
 		if (a == 1) {
 			adj[b].w = c;
+			update = true;
 		}
 		else {
 			scan(d);

@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Tarjan.cpp">
+    <ClCompile Include="LazySegTree.cpp">
       <SubType>
       </SubType>
     </ClCompile>

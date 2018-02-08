@@ -115,6 +115,7 @@
     <ClCompile Include="Lazy Propagation Seg Tree.cpp" />
     <ClCompile Include="LCA.cpp" />
     <ClCompile Include="Seg Tree.cpp" />
+    <ClCompile Include="Tarjan.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

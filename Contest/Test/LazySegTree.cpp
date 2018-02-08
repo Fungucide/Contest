@@ -31,6 +31,8 @@ using namespace std;
 
 int N, seg[2 * MAXN], lazy[MAXN], logTable[2 * MAXN], h = 0;
 
+//NOTE: Current Seg tree is for addition, modifications will need to be made for other operations all parts marked will require editing
+
 template <typename T>
 void construct(T *t, T(*combiner)(T, T), bool lt) {
 	for (int i = N - 1; i > 0; --i)
@@ -75,9 +77,9 @@ void update(T *t, T *d, int l, int r, int value, T(*combiner)(T, T)) {
 	int l0 = l, r0 = r;
 	for (; l < r; l >>= 1, r >>= 1) {
 		if (l & 1)
-			apply(t, d, l, value * 1 << (h - logTable[l++] - 1));
+			apply(t, d, l, value * 1 << (h - logTable[l++] - 1));//This will need to be changed depending on combiner RN: It's 2^h because of adittion
 		if (r & 1)
-			apply(t, d, --r, value * 1 << (h - logTable[r] - 1));
+			apply(t, d, --r, value * 1 << (h - logTable[r] - 1));//Same as above
 	}
 	build(t, d, l0, combiner);
 	build(t, d, r0 - 1, combiner);
@@ -109,13 +111,13 @@ int sum(int a, int b) {
 
 int main() {
 	N = 8;
-	//seg[N] = 1;
-	//seg[N + 1] = 2;
-	//seg[N + 2] = 3;
-	//seg[N + 3] = 4;
-	//seg[N + 4] = 5;
+	seg[N] = 1;
+	seg[N + 1] = 2;
+	seg[N + 2] = 3;
+	seg[N + 3] = 4;
+	seg[N + 4] = 5;
 	construct(seg, sum, true);
 	update(seg, lazy, 0, 5, 10, sum);
 	printf("%d\n", query(seg, lazy, 0, 5, sum));
-	return 0;
+		return 0;
 }

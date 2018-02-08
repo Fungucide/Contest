@@ -29,7 +29,7 @@ char _;
 
 using namespace std;
 
-int N, seg[2 * MAXN], lazy[MAXN], logTable[2 * MAXN], h = 0;
+int N, seg[2 * MAXN], lazy[MAXN], segSize[2 * MAXN], h = 0;
 
 //NOTE: Current Seg tree is for addition, modifications will need to be made for other operations all parts marked will require editing
 
@@ -39,23 +39,24 @@ void construct(T *t, T(*combiner)(T, T), bool lt) {
 		t[i] = combiner(t[i << 1], t[i << 1 | 1]);
 	for (h = 0; N >> h > 0; h++);
 	if (lt) {
-		for (int i = 1; i <= 2 * N; i++) {
-			logTable[i] = (i >> (logTable[i - 1] + 1)) ? logTable[i - 1] + 1 : logTable[i - 1];
-		}
+		for (int i = 2 * N - 1; i >= N; i--)
+			segSize[i] = 1;
+		for (int i = N - 1; i > 0; i--)
+			segSize[i] = segSize[i << 1] + segSize[i << 1 | 1];
 	}
 }
 
 template <typename T>
 void apply(T *t, T *d, int p, int v) {
-	t[p] += v;
-	if (p < N)d[p] += v >> 1;// This might need to be changed depending on the combiner RN: divide by 2 becuase of addition
+	t[p] += v * segSize[p];
+	if (p < N)d[p] += v;// This might need to be changed depending on the combiner RN: divide by 2 becuase of addition
 }
 
 template <typename T>
 void build(T *t, T *d, int p, T(*combiner)(T, T)) {
 	while (p > 1) {
 		p >>= 1;
-		t[p] = combiner(t[p << 1], t[p << 1 | 1]) + (d[p] << 1);// This might need to be changed depending on the combiner RN: multiply by 2 because of addition
+		t[p] = combiner(t[p << 1], t[p << 1 | 1]) + d[p] * segSize[p];// This might need to be changed depending on the combiner RN: multiply by 2 because of addition
 	}
 }
 
@@ -76,10 +77,14 @@ void update(T *t, T *d, int l, int r, int value, T(*combiner)(T, T)) {
 	l += N, r += N;
 	int l0 = l, r0 = r;
 	for (; l < r; l >>= 1, r >>= 1) {
-		if (l & 1)
-			apply(t, d, l, value * 1 << (h - logTable[l++] - 1));//This will need to be changed depending on combiner RN: It's 2^h because of adittion
-		if (r & 1)
-			apply(t, d, --r, value * 1 << (h - logTable[r] - 1));//Same as above
+		if (l & 1) {
+			apply(t, d, l, value);//This will need to be changed depending on combiner RN: It's 2^h because of adittion
+			l++;
+		}
+		if (r & 1) {
+			r--;
+			apply(t, d, r, value);//Same as above
+		}
 	}
 	build(t, d, l0, combiner);
 	build(t, d, r0 - 1, combiner);
@@ -110,7 +115,7 @@ int sum(int a, int b) {
 }
 
 int main() {
-	N = 8;
+	N = 7;
 	seg[N] = 1;
 	seg[N + 1] = 2;
 	seg[N + 2] = 3;
@@ -119,5 +124,7 @@ int main() {
 	construct(seg, sum, true);
 	update(seg, lazy, 0, 5, 10, sum);
 	printf("%d\n", query(seg, lazy, 0, 5, sum));
-		return 0;
+	update(seg, lazy, 3, 7, 4, sum);
+	printf("%d\n", query(seg, lazy, 3, 5, sum));
+	return 0;
 }

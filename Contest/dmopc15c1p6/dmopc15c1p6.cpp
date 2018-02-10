@@ -49,16 +49,16 @@ void construct(T *t, T(*combiner)(T, T), bool lt) {
 
 template <typename T>
 void apply(T *t, T *d, int p, int v) {
-	t[p] += v * segSize[p];
+	t[p] = (t[p] + v * segSize[p]) % M;
 	if (p < N)
-		d[p] += v;// This might need to be changed depending on the combiner RN: divide by 2 becuase of addition
+		d[p] = (d[p] + v) % M;
 }
 
 template <typename T>
 void build(T *t, T *d, int p, T(*combiner)(T, T)) {
 	while (p > 1) {
 		p >>= 1;
-		t[p] = combiner(t[p << 1], t[p << 1 | 1]) + d[p] * segSize[p];// This might need to be changed depending on the combiner RN: multiply by 2 because of addition
+		t[p] = (combiner(t[p << 1], t[p << 1 | 1]) + d[p] * segSize[p]) % M;// This might need to be changed depending on the combiner RN: multiply by seg size because of addition
 	}
 }
 
@@ -80,12 +80,12 @@ void update(T *t, T *d, int l, int r, int value, T(*combiner)(T, T)) {
 	int l0 = l, r0 = r;
 	for (; l < r; l >>= 1, r >>= 1) {
 		if (l & 1) {
-			apply(t, d, l, value);//This will need to be changed depending on combiner RN: It's 2^h because of adittion
+			apply(t, d, l, value);
 			l++;
 		}
 		if (r & 1) {
 			r--;
-			apply(t, d, r, value);//Same as above
+			apply(t, d, r, value);
 		}
 	}
 	build(t, d, l0, combiner);
@@ -113,7 +113,7 @@ T query(T *t, T*d, int l, int r, T(*combiner)(T, T)) {
 }
 
 ll sum(ll a, ll b) {
-	return (a + b);
+	return (a + b) % M;
 }
 
 int main() {
@@ -131,10 +131,8 @@ int main() {
 			update(seg, lazy, b, c, d, sum);
 		}
 		else {
-			ll res = query(seg, lazy, b, c, sum);
-			if (res < 0)
-				throw "cust";
-			printf("%lld\n", res%M);
+			ll res = query(seg, lazy, b, c, sum) % M;
+			printf("%lld\n", res);
 
 		}
 	}

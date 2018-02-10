@@ -23,7 +23,7 @@
 #define ll long long
 #define ull unsigned long long
 #define pii pair<int,int>
-#define MAXN 9//1e5
+#define MAXN 15//1e5
 #define scan(x) do{while((x=getchar())<'0'); for(x-='0'; '0'<=(_=getchar()); x=(x<<3)+(x<<1)+_-'0');}while(0)
 char _;
 
@@ -64,7 +64,7 @@ template <typename T>
 void push(T *t, T*d, int p) {
 	for (int s = h; s > 0; --s) {
 		int i = p >> s;
-		if (d[i] != 0) {
+		if (i < N && d[i] != 0) {
 			apply(t, d, i << 1, d[i]);
 			apply(t, d, i << 1 | 1, d[i]);
 			d[i] = 0;
@@ -115,7 +115,7 @@ int sum(int a, int b) {
 }
 
 int main() {
-	N = 7;
+	N = 13;
 	seg[N] = 1;
 	seg[N + 1] = 2;
 	seg[N + 2] = 3;

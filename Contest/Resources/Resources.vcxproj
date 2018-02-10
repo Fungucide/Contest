@@ -112,6 +112,14 @@
   <ItemGroup>
     <ClCompile Include="Binary Index Tree.cpp" />
     <ClCompile Include="Disjoint Set.cpp" />
+    <ClCompile Include="Fast Scan Negative.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HLD.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Lazy Propagation Seg Tree.cpp" />
     <ClCompile Include="LCA.cpp" />
     <ClCompile Include="Seg Tree.cpp" />

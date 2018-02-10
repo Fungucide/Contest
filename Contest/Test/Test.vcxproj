@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LazySegTree.cpp">
+    <ClCompile Include="Scanner.cpp">
       <SubType>
       </SubType>
     </ClCompile>

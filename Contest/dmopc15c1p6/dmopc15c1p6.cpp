@@ -38,7 +38,6 @@ void construct(T *t, T(*combiner)(T, T), bool lt) {
 	for (int i = N - 1; i > 0; --i)
 		t[i] = combiner(t[i << 1], t[i << 1 | 1]);
 	for (h = 0; N >> h > 0; h++);
-	h++;
 	if (lt) {
 		for (int i = 2 * N - 1; i >= N; i--)
 			segSize[i] = 1;
@@ -58,7 +57,7 @@ template <typename T>
 void build(T *t, T *d, int p, T(*combiner)(T, T)) {
 	while (p > 1) {
 		p >>= 1;
-		t[p] = (combiner(t[p << 1], t[p << 1 | 1]) + d[p] * segSize[p]) % M;// This might need to be changed depending on the combiner RN: multiply by seg size because of addition
+		t[p] = (combiner(t[p << 1], t[p << 1 | 1]) + d[p] * segSize[p]) % M;// This might need to be changed depending on the combiner RN: multiply by segSize because of addition
 	}
 }
 
@@ -98,15 +97,18 @@ T query(T *t, T*d, int l, int r, T(*combiner)(T, T)) {
 	r += N;
 	push(t, d, l);
 	push(t, d, r - 1);
-	T res = 0; // Change this when changing combiner
+	T res; // Change this when changing combiner
+	bool flag=false;
 	for (; l < r; l >>= 1, r >>= 1) {
 		if (l & 1) {
-			res = combiner(res, t[l]);
+			res = flag ? combiner(res, t[l]) : t[l]%M;
 			l++;
+			flag = true;
 		}
 		if (r & 1) {
 			--r;
-			res = combiner(t[r], res);
+			res = flag ? combiner(t[r], res) : t[r]%M;
+			flag = true;
 		}
 	}
 	return res;

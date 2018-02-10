@@ -38,20 +38,20 @@ void construct(T *t, T(*combiner)(T, T)) {
 }
 
 template <typename T>
-void modify(int p, T value, T *t, T(*combiner)(T, T)) {
-	for (t[p += n] = value; p > 1; p >>= 1)
+void update(T *t, int p, T value, T(*combiner)(T, T)) {
+	for (t[p += N] = value; p > 1; p >>= 1)
 		t[p >> 1] = combiner(t[p], t[p ^ 1]);
 }
 
 template <typename T>
-T query(int l, int r, T *t, T(*combiner)(T, T)) {
+T query(T *t, int l, int r, T(*combiner)(T, T)) {
 	T res;
 	bool flag = false;
-	for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
+	for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
 		if (l & 1)
-			(res = flag ? combiner(res, t[l++]) : t[l++]), flag = true;
+			(res = flag ? combiner(res, t[l]) : t[l]), l++,flag = true;
 		if (r & 1)
-			(res = flag ? combiner(res, t[--r]) : t[--r]), flag = true;
+			r--,(res = flag ? combiner(res, t[r]) : t[r]), flag = true;
 	}
 	return res;
 }

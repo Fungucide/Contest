@@ -26,7 +26,7 @@ char _;
 
 using namespace std;
 
-int N,cnt = 0, ind = 0, top[MAXN], chain[MAXN], par[MAXN], special[MAXN], dep[MAXN], pos[MAXN],seg[2*MAXN];
+int N, cnt = 0, ind = 0, top[MAXN], chain[MAXN], par[MAXN], special[MAXN], sub[MAXN], dep[MAXN], pos[MAXN], seg[2 * MAXN];
 vector<pii> adj[MAXN];
 
 void update(int p, int value) {
@@ -47,19 +47,13 @@ int query(int l, int r) {
 }
 
 int dfs(int n, int prev = -1, int d = 0) {
-	int sub = 1;
 	par[n] = prev;
+	sub[n] = 1;
 	dep[n] = d;
-	int m = -1;
-	for (pii i : adj[n]) {
-		if (i.first != prev) {
-			int sz = dfs(i.first, n, d + 1);
-			sub += sz;
-			if (sz > m)
-				special[n] = i.first, m = sz;
-		}
-	}
-	return sub;
+	for (pii i : adj[n])
+		if (i.first != prev)
+			sub[n] += dfs(i.first, n, d + 1);
+	return sub[n];
 }
 
 void hld(int n, int prev = -1, int cost = -1) {
@@ -68,6 +62,9 @@ void hld(int n, int prev = -1, int cost = -1) {
 	chain[n] = cnt;
 	pos[n] = ind;
 	seg[N + ind++] = cost;
+	for (pii i : adj[n])
+		if (i.first != prev && (special[n] == -1 || sub[i.first] > sub[special[n]]))
+			special[n] = i.first, cost = i.second;
 	if (special[n] == -1)
 		return;
 	hld(special[n], n, cost);
@@ -84,17 +81,15 @@ int query_up(int u, int v) {
 	while (chain[u] != chain[v]) {
 		if (dep[top[chain[u]]] < dep[top[chain[v]]])
 			swap(u, v);
-		res = max(res, query(pos[top[chain[u]]], pos[u]));
+		res = max(res, query(pos[top[chain[u]]], pos[u] + 1));
 		u = par[top[chain[u]]];
 	}
 	if (pos[u] > pos[v])
 		swap(u, v);
-	return max(res, query(pos[u] + 1, pos[v]));
+	return max(res, query(pos[u] + 1, pos[v] + 1));
 }
 
-void update_tree(int u, int v, int val) {
-	if (dep[u] < dep[v])
-		swap(u, v);
+void update_tree(int u, int v) {
 	update(pos[u], v);
 }
 

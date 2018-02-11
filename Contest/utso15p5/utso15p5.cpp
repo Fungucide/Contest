@@ -13,6 +13,9 @@
 #include <vector>
 #include <unordered_map>
 #include <queue>
+#include <list>
+#include <stack>
+#include <set>
 #define scanf scanf_s
 
 #endif
@@ -21,150 +24,109 @@
 #define ull unsigned long long
 #define pii pair<int,int>
 #define MAXN 100000//1e5
+#define MULT 1
 #define scan(x) do{while((x=getchar())<'0'); for(x-='0'; '0'<=(_=getchar()); x=(x<<3)+(x<<1)+_-'0');}while(0)
 char _;
 
 using namespace std;
 
-struct edge {
-	int a, b, w;
-	bool operator<(const edge& rhs) const { return w < rhs.w; }
-};
+int N, seg[2 * MAXN], lazy[MAXN], segSize[2 * MAXN], h = 0;
 
-int N, M, cnt = 0, ind = 0, top[MAXN], chain[MAXN], par[MAXN], sub[MAXN], dep[MAXN], pos[MAXN], seg[2 * MAXN], disjoint[MAXN];
-vector<pii> adj[MAXN];
-vector<edge> E, notUsed;
+//NOTE: Current Seg tree is for addition, modifications will need to be made for other operations all parts marked will require editing
 
-void constructD() {
-	for (int i = 0; i < N; i++)
-		disjoint[i] = i;
+template <typename T>
+void construct(T *t, T(*combiner)(T, T), bool lt) {
+	for (int i = N - 1; i > 0; --i)
+		t[i] = combiner(t[i << 1], t[i << 1 | 1]);
+	for (h = 0; N >> h > 0; h++);
+	if (lt) {
+		for (int i = 2 * N - 1; i >= N; i--)
+			segSize[i] = 1;
+		for (int i = N - 1; i > 0; i--)
+			segSize[i] = segSize[i << 1] + segSize[i << 1 | 1];
+	}
 }
 
-int find(int x) {
-	if (disjoint[x] == x)
-		return x;
-	return disjoint[x] = find(disjoint[x]);
+template <typename T>
+void apply(T *t, T *d, int p, int v) {
+	t[p] += v * segSize[p];
+	if (p < N)
+		d[p] += v;
 }
 
-bool cmp(int x, int y) {
-	return find(x) == find(y);
+template <typename T>
+void build(T *t, T *d, int p, T(*combiner)(T, T), int mult) {
+	while (p > 1) {
+		p >>= 1;
+		t[p] = combiner(t[p << 1], t[p << 1 | 1]) + d[p] * segSize[p] * mult;// This might need to be changed depending on the combiner RN: multiply by segSize because of addition
+	}
 }
 
-void merge(int x, int y) {
-	disjoint[find(y)] = find(x);
+template <typename T>
+void push(T *t, T*d, int p) {
+	for (int s = h; s > 0; --s) {
+		int i = p >> s;
+		if (i < N && d[i] != 0) {
+			apply(t, d, i << 1, d[i]);
+			apply(t, d, i << 1 | 1, d[i]);
+			d[i] = 0;
+		}
+	}
 }
 
-void update(int p, int value) {
-	for (seg[p += N] = value; p > 1; p >>= 1)
-		seg[p >> 1] = max(seg[p], seg[p ^ 1]);
+template <typename T>
+void update(T *t, T *d, int l, int r, int value, T(*combiner)(T, T), int mult) {
+	l += N, r += N;
+	int l0 = l, r0 = r;
+	for (; l < r; l >>= 1, r >>= 1) {
+		if (l & 1) {
+			apply(t, d, l, value);
+			l++;
+		}
+		if (r & 1) {
+			r--;
+			apply(t, d, r, value);
+		}
+	}
+	build(t, d, l0, combiner);
+	build(t, d, r0 - 1, combiner);
 }
 
-int query(int l, int r) {
-	int res;
+template <typename T>
+T query(T *t, T*d, int l, int r, T(*combiner)(T, T)) {
+	l += N;
+	r += N;
+	push(t, d, l);
+	push(t, d, r - 1);
+	T res; // Change this when changing combiner
 	bool flag = false;
-	for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
-		if (l & 1)
-			(res = flag ? max(res, seg[l]) : seg[l]), l++, flag = true;
-		if (r & 1)
-			r--, (res = flag ? max(res, seg[r]) : seg[r]), flag = true;
+	for (; l < r; l >>= 1, r >>= 1) {
+		if (l & 1) {
+			res = flag ? combiner(res, t[l]) : t[l];
+			l++;
+			flag = true;
+		}
+		if (r & 1) {
+			--r;
+			res = flag ? combiner(t[r], res) : t[l];
+			flag = true;
+		}
 	}
 	return res;
 }
 
-int dfs(int n, int prev = -1, int d = 0) {
-	par[n] = prev;
-	sub[n] = 1;
-	dep[n] = d;
-	for (pii i : adj[n])
-		if (i.first != prev)
-			sub[n] += dfs(i.first, n, d + 1);
-	return sub[n];
-}
-
-void hld(int n, int prev = -1, int cost = -1) {
-	if (top[cnt] == -1)
-		top[cnt] = n;
-	chain[n] = cnt;
-	pos[n] = ind;
-	seg[N+ind++] = cost;
-	int idx = -1;
-	for (pii i : adj[n])
-		if (i.first != prev && (idx == -1 || sub[i.first] > sub[idx]))
-			idx = i.first, cost = i.second;
-	if (idx == -1)
-		return;
-	hld(idx, n, cost);
-	for (pii i : adj[n]) {
-		if (i.first != prev && i.first != idx) {
-			++cnt;
-			hld(i.first, n, i.second);
-		}
-	}
-}
-
-int query_up(int u, int v) {
-	int res = -1;
-	while (chain[u] != chain[v]) {
-		if (dep[top[chain[u]]] < dep[top[chain[v]]])
-			swap(u, v);
-		res = max(res, query(pos[top[chain[u]]], pos[u]));
-		u = par[top[chain[u]]];
-	}
-	if (pos[u] > pos[v])
-		swap(u, v);
-	return max(res, query(pos[u] + 1, pos[v]));
-}
-
-void update_tree(int u, int v, int val) {
-	if (dep[u] < dep[v])
-		swap(u, v);
-	update(pos[u], v);
-}
-
-void construct() {
-	dfs(0);
-	hld(0);
-	for (int i = N - 1; i > 0; --i)
-		seg[i] = max(seg[i << 1], seg[i << 1 | 1]);
+int sum(int a, int b) {
+	return a + b;
 }
 
 int main() {
-	memset(top, -1, sizeof top);
-	scan(N); scan(M);
-	constructD();
-	int a, b, c;
-	for (int i = 0; i < M; i++) {
-		scan(a); scan(b); scan(c);
-		E.push_back({ --a,--b,c });
-	}
-	sort(E.begin(), E.end());
-	int totalW = 0;
-	int nEdge = 0;
-	for (edge e : E) {
-		if (!cmp(e.a, e.b)) {
-			merge(e.a, e.b);
-			adj[e.a].push_back({ e.b,e.w });
-			adj[e.b].push_back({ e.a,e.w });
-			totalW += e.w;
-			nEdge++;
-		}
-		else
-			notUsed.push_back(e);
-	}
-	if (nEdge != N - 1) {
-		printf("-1\n");
-		return 0;
-	}
-	construct();
-	int res = 1 << 30, temp;
-	for (edge e : notUsed) {
-		temp = query_up(e.a, e.b);
-		if (temp < e.w)
-			res = min(res, totalW + e.w - temp);
-	}
-	if (res == totalW || res == 1 << 30)
-		printf("-1\n");
-	else
-		printf("%d\n", res);
+	scan(N);
+	for (int i = 0; i < N; i++)
+		scan(seg[N + i]);
+	construct(seg, sum, true);
+
+	update(seg, lazy, 0, 5, 10, sum, MULT);
+
+	printf("%d\n", query(seg, lazy, 0, 5, sum));
 	return 0;
 }

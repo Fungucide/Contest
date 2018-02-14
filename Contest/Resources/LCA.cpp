@@ -29,7 +29,7 @@ char _;
 
 using namespace std;
 
-int N, h[MAXN], first[MAXN], logtwo[2 * MAXN];
+int N, h[MAXN], first[MAXN], log_two[2 * MAXN];
 pii table[20][2 * MAXN];
 list<int> adj[MAXN];
 vector<int> tour, ind[MAXN];//ind for where it's been
@@ -48,16 +48,9 @@ void dfs(int n, int hei) {
 	}
 }
 
-int count_bits(int n) {
-	int cnt = 0;
-	while (n = (n >> 1))
-		++cnt;
-	return cnt;
-}
-
 void build(int n) {
 	for (int i = 0; i < n; ++i)
-		table[0][i] = { h[tour[i]],tour[i] }, logtwo[i] = count_bits(i);
+		table[0][i] = { h[tour[i]],tour[i] }, log_two[i] = (i >> (log_two[i - 1] + 1)) ? log_two[i - 1] + 1 : log_two[i - 1];;
 	for (int i = 1, curr = 2; curr < n; curr <<= 1, ++i)
 		for (int j = 0; j + curr <= n; ++j)
 			table[i][j] = min(table[i - 1][j], table[i - 1][j + (curr >> 1)]);
@@ -69,7 +62,7 @@ pii query(int l, int r) {
 	if (l > r)
 		swap(l, r);
 	r++;
-	int tmp = logtwo[r - l];
+	int tmp = log_two[r - l];
 	return min(table[tmp][l], table[tmp][r - (1 << tmp)]);
 }
 

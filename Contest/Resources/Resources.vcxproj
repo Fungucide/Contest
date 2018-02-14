@@ -123,10 +123,6 @@
     <ClCompile Include="Lazy Propagation Seg Tree.cpp" />
     <ClCompile Include="LCA.cpp" />
     <ClCompile Include="Seg Tree.cpp" />
-    <ClCompile Include="Sparse Table.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="Tarjan.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

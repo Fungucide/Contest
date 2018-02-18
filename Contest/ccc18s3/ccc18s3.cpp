@@ -96,16 +96,10 @@ int main() {
 		}
 	}
 
-	/*for (int i = 0; i < N; i++) {
-		for (int j = 0; j < M; j++) {
-			cout << dir[j][i];
-		}
-		cout << endl;
-	}*/
-
-
-	dis[x][y] = 0;
-	pq.push({ 0,x,y });
+	if (dir[x][y] != 'B') {
+		dis[x][y] = 0;
+		pq.push({ 0,x,y });
+	}
 	while (!pq.empty()) {
 		cust cur = pq.top();
 		pq.pop();

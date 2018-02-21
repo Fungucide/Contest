@@ -27,20 +27,20 @@
 
 using namespace std;
 
-int N, M, P, Q, disjoint[MAXN][2];
-
-vector<edge> edges;
-
 struct edge {
 	ll type, a, b, w;
 	bool operator<(const edge& rhs) const { if (w != rhs.w) { return w < rhs.w; } else { return a > rhs.a; } }
 };
 
+ll N, M, P, Q;
+int disjoint[MAXN][2];
+vector<edge> edges;
+
 void construct() {
-	for (int i = 0; i < P; i++)
+	for (int i = 0; i < M; i++)
 		disjoint[i][0] = i;
-	for (int i = 0; i < Q; i++)
-		disjoint[i][1];
+	for (int i = 0; i < N; i++)
+		disjoint[i][1] = i;
 }
 
 int find(int x, int type) {
@@ -59,26 +59,42 @@ bool merge(int x, int y, int type) {
 }
 
 int main() {
-	scanf("%d%d%d%d", &N, &M, &P, &Q);
+	scanf("%lld%lld%lld%lld", &N, &M, &P, &Q);
 	construct();
-	int a, b, c;
+	ll a, b, c;
+	ll totalCost = 0;
 	for (int i = 0; i < P; i++) {
-		scanf("%d%d%d", &a, &b, &c);
+		scanf("%lld%lld%lld", &a, &b, &c);
 		--a; --b;
-		edges.push_back(edge{ 0,a,b,c });
+		edges.push_back(edge{ 0,a,b,c });//Horizontal Edges 0 P
+		totalCost += c * N;
 	}
-	for (int i = 0; i < P; i++) {
-		scanf("%d%d%d", &a, &b, &c);
+
+	for (int i = 0; i < Q; i++) {
+		scanf("%lld%lld%lld", &a, &b, &c);
 		--a; --b;
-		edges.push_back(edge{ 1,a,b,c });
+		edges.push_back(edge{ 1,a,b,c });//Vertical Edges 1 Q
+		totalCost += c * M;
 	}
+
 	sort(edges.begin(), edges.end());
-	ll cost = 0, nEdges = 0, hEdges = 0, vEdges = 0;
+
+	ll cost = 0, nEdges = N * M - 1, hEdges = N, vEdges = M, amount;
+
 	for (edge e : edges) {
 		if (!cmp(e.a, e.b, e.type)) {
-			cost += (e.type ? P - hEdges : Q - vEdges)*e.w;
-			nEdges += e.type ? vEdges++ : hEdges++;
+			merge(e.a, e.b, e.type);
+			amount = e.type ? vEdges : hEdges;
+			nEdges -= amount;
+			cost += amount * e.w;
+			e.type ? hEdges-- : vEdges--;
+			if (nEdges == 0)
+				break;
 		}
 	}
+	if (nEdges == 0)
+		printf("%lld\n", totalCost - cost);
+	else
+		printf("0\n");
 	return 0;
 }

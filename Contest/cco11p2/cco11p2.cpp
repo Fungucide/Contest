@@ -41,11 +41,11 @@ int S, N, E;
 vector<edge> adj[MAXN];
 priority_queue<edge> pq;
 bool v[MAXN];
-int d[MAXN];
+int dis[MAXN][3602];
 
 
 int main() {
-	memset(d, 0x3f, sizeof d);
+	memset(dis, INT_INF, sizeof dis);
 	scan(S); scan(N); scan(E);
 	int a, b, c, d;
 	for (int i = 0; i < E; i++) {
@@ -59,19 +59,26 @@ int main() {
 	while (!pq.empty()) {
 		edge n = pq.top();
 		pq.pop();
-		//v[n.d] = true;
 		for (edge e : adj[n.d]) {
-			if (v[e.d])
+			if (e.a&&n.a + e.w > S)
 				continue;
-			else if (!e.a || n.a +	e.w <= S) {
+			if (dis[e.d][e.a ? n.a + e.w : n.a] <= n.w + e.w)
+				continue;
+			else if (!e.a || n.a + e.w <= S) {
+				dis[e.d][e.a ? n.a + e.w : n.a] = n.w + e.w;
 				pq.push({ e.d, n.w + e.w, e.a ? n.a + e.w : n.a });
 			}
 		}
 	}
-	if (!v[N - 1])
+	int res = INT_INF;
+	for (int i = 0; i <= S; i++) {
+		if (dis[N - 1][i] < res)
+			res = dis[N - 1][i];
+	}
+	if (res == INT_INF)
 		printf("-1\n");
 	else
-		printf("%d\n", min);
+		printf("%d\n", res);
 
 	return 0;
 }

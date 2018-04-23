@@ -1,3 +1,0 @@
-﻿  Factorial Power.cpp
-c:\users\blues\documents\visual studio 2015\projects\factorial power\factorial power\factorial power.cpp(19): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-  Factorial Power.vcxproj -> c:\users\blues\documents\visual studio 2015\Projects\Factorial Power\Debug\Factorial Power.exe

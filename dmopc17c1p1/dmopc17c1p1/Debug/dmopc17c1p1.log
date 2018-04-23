@@ -1,8 +1,0 @@
-﻿  dmopc17c1p1.cpp
-c:\users\blues\documents\visual studio 2015\projects\dmopc17c1p1\dmopc17c1p1\dmopc17c1p1.cpp(19): warning C4477: 'scanf_s' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'std::string *'
-  c:\users\blues\documents\visual studio 2015\projects\dmopc17c1p1\dmopc17c1p1\dmopc17c1p1.cpp(19): note: this argument is used by a conversion specifier
-c:\users\blues\documents\visual studio 2015\projects\dmopc17c1p1\dmopc17c1p1\dmopc17c1p1.cpp(19): warning C4473: 'scanf_s' : not enough arguments passed for format string
-  c:\users\blues\documents\visual studio 2015\projects\dmopc17c1p1\dmopc17c1p1\dmopc17c1p1.cpp(19): note: placeholders and their parameters expect 2 variadic arguments, but 1 were provided
-  c:\users\blues\documents\visual studio 2015\projects\dmopc17c1p1\dmopc17c1p1\dmopc17c1p1.cpp(19): note: the missing variadic argument 2 is required by format string '%s'
-  c:\users\blues\documents\visual studio 2015\projects\dmopc17c1p1\dmopc17c1p1\dmopc17c1p1.cpp(19): note: this argument is used as a buffer size
-  dmopc17c1p1.vcxproj -> c:\users\blues\documents\visual studio 2015\Projects\dmopc17c1p1\Debug\dmopc17c1p1.exe

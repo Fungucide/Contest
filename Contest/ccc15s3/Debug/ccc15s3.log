@@ -1,7 +1,0 @@
-﻿  ccc15s3.cpp
-c:\users\blues\source\repos\contest\contest\ccc15s3\ccc15s3.cpp(39): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>'
-          with
-          [
-              _Ty=int
-          ]
-  ccc15s3.vcxproj -> C:\Users\blues\source\repos\Contest\Contest\Debug\ccc15s3.exe

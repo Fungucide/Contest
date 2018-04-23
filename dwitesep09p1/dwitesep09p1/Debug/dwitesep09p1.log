@@ -1,6 +1,0 @@
-﻿  dwitesep09p1.cpp
-c:\users\blues\documents\visual studio 2015\projects\dwitesep09p1\dwitesep09p1\dwitesep09p1.cpp(14): warning C4018: '<': signed/unsigned mismatch
-c:\users\blues\documents\visual studio 2015\projects\dwitesep09p1\dwitesep09p1\dwitesep09p1.cpp(15): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-c:\users\blues\documents\visual studio 2015\projects\dwitesep09p1\dwitesep09p1\dwitesep09p1.cpp(22): warning C4018: '<': signed/unsigned mismatch
-c:\users\blues\documents\visual studio 2015\projects\dwitesep09p1\dwitesep09p1\dwitesep09p1.cpp(26): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  dwitesep09p1.vcxproj -> C:\Users\blues\Documents\Visual Studio 2015\Projects\dwitesep09p1\Debug\dwitesep09p1.exe

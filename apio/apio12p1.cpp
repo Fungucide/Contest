@@ -1,7 +1,6 @@
 #include <queue>
 #include <stdio.h>
 #define MAXN 100002
-#define scanf scanf_s
 
 using namespace std;
 
